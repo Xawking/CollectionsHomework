@@ -35,16 +35,10 @@ public class Game {
         player2 = findByName(playerName2);
 
         if (player1 == null) {
-            throw new NotFoundException("Player " + player1.getName() + " Is not found");
+            throw new NotRegisteredException("Player " + playerName1 + " Is not registered");
         }
         if (player2 == null) {
-            throw new NotFoundException("Player " + player2.getName() + " Is not found");
-        }
-        if (!player1.getIsRegistered()) {
-            throw new NotRegisteredException("Player " + player1.getName() + " Is not registered");
-        }
-        if (!player2.getIsRegistered()) {
-            throw new NotRegisteredException("Player " + player2.getName() + " Is not registered");
+            throw new NotRegisteredException("Player " + playerName2 + " Is not registered");
         }
 
 
