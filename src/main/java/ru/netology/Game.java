@@ -1,16 +1,16 @@
 package ru.netology;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Game {
     List<Player> playerList = new ArrayList<>();
 
     public void register(Player player) {
-        if (!player.getIsRegistered()) {
+        if (playerList.contains(player)) {
+            throw new AlreadyExistsException("Player " + player.getName() + " is already registered");
+        } else {
             playerList.add(player);
-            player.setRegistered(true);
         }
 
     }
@@ -28,9 +28,9 @@ public class Game {
     }
 
 
-    public int round(String playerName1, String playerName2, Comparator<Player> comparator) {
-        Player player1 = null;
-        Player player2 = null;
+    public int round(String playerName1, String playerName2) {
+        Player player1;
+        Player player2;
         player1 = findByName(playerName1);
         player2 = findByName(playerName2);
 
@@ -42,7 +42,7 @@ public class Game {
         }
 
 
-        return comparator.compare(player1, player2);
+        return player1.compareTo(player2);
 
     }
 }

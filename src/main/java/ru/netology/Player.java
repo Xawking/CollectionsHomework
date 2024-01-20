@@ -1,10 +1,10 @@
 package ru.netology;
 
-public class Player<Player> {
+public class Player implements Comparable<Player> {
     private int id;
     private int strength;
     private String name;
-    private boolean isRegistered = false;
+
 
     public Player() {
     }
@@ -13,14 +13,6 @@ public class Player<Player> {
         this.id = id;
         this.strength = strength;
         this.name = name;
-    }
-
-    public boolean getIsRegistered() {
-        return isRegistered;
-    }
-
-    public void setRegistered(boolean registered) {
-        isRegistered = registered;
     }
 
     public String getName() {
@@ -48,4 +40,15 @@ public class Player<Player> {
     }
 
 
+    @Override
+    public int compareTo(Player o) {
+        if (this.getStrength() > o.getStrength()) {
+            return 1;
+        }
+        if (this.getStrength() < o.getStrength()) {
+            return 2;
+        } else {
+            return 0;
+        }
+    }
 }

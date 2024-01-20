@@ -3,9 +3,6 @@ package ru.netology;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class GameTest {
     @Test
     public void jinaShouldWin() {
@@ -13,12 +10,11 @@ class GameTest {
         Player player2 = new Player(11, 7, "Said");
         Player player3 = new Player(111, 10, "Jina");
         Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
         game.register(player1);
         game.register(player2);
         game.register(player3);
         int expected = 2;
-        int actual = game.round("Said", "Jina", comparator);
+        int actual = game.round("Said", "Jina");
         Assertions.assertEquals(expected, actual);
 
 
@@ -30,33 +26,12 @@ class GameTest {
         Player player2 = new Player(11, 7, "Said");
         Player player3 = new Player(111, 10, "Jina");
         Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
         game.register(player1);
         game.register(player2);
         game.register(player3);
         Assertions.assertThrows(NotRegisteredException.class, () -> {
-            game.round("Boris", "Dimitry", comparator);
+            game.round("Boris", "Dimitry");
         });
-
-    }
-
-    @Test
-    public void shouldNotRegister() {
-        Player player1 = new Player(1, 5, "Boris");
-        Player player2 = new Player(11, 7, "Said");
-        Player player3 = new Player(111, 10, "Jina");
-        Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
-        game.register(player1);
-        game.register(player2);
-        game.register(player3);
-        game.register(player1);
-        List<Player> expected = new ArrayList<>();
-        expected.add(player1);
-        expected.add(player2);
-        expected.add(player3);
-        List<Player> actual = game.playerList;
-        Assertions.assertEquals(expected, actual);
 
     }
 
@@ -66,12 +41,11 @@ class GameTest {
         Player player2 = new Player(11, 7, "Said");
         Player player3 = new Player(111, 10, "Jina");
         Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
         game.register(player1);
         game.register(player2);
         game.register(player3);
         int expected = 1;
-        int actual = game.round("Said", "Boris", comparator);
+        int actual = game.round("Said", "Boris");
         Assertions.assertEquals(expected, actual);
 
 
@@ -83,12 +57,11 @@ class GameTest {
         Player player2 = new Player(11, 10, "Said");
         Player player3 = new Player(111, 10, "Jina");
         Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
         game.register(player1);
         game.register(player2);
         game.register(player3);
         int expected = 0;
-        int actual = game.round("Said", "Jina", comparator);
+        int actual = game.round("Said", "Jina");
         Assertions.assertEquals(expected, actual);
 
 
@@ -100,12 +73,27 @@ class GameTest {
         Player player2 = new Player(11, 7, "Said");
         Player player3 = new Player(111, 10, "Jina");
         Game game = new Game();
-        PlayerComparator comparator = new PlayerComparator();
         game.register(player1);
         game.register(player2);
         game.register(player3);
         Assertions.assertThrows(NotRegisteredException.class, () -> {
-            game.round("Dimitry", "Boris", comparator);
+            game.round("Dimitry", "Boris");
+        });
+
+    }
+
+    @Test
+    public void shouldThrowAlreadyExists() {
+        Player player1 = new Player(1, 5, "Boris");
+        Player player2 = new Player(11, 7, "Said");
+        Player player3 = new Player(111, 10, "Jina");
+        Game game = new Game();
+        game.register(player1);
+        game.register(player2);
+        game.register(player3);
+        Assertions.assertThrows(AlreadyExistsException.class, () -> {
+            game.register(player1);
+            ;
         });
 
     }
